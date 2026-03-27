@@ -37,7 +37,7 @@
 \begin{document}
 
 % ------ Title -----------------------------------------------
-\uptitleframe{Introduction to\\Git for Code}{Dr Muaaz Bhamjee\\[0.15cm]{\small Department of Mechanical \& Aeronautical Engineering}}
+\uptitleframe{Introduction to\\Git for Code}{Prof Muaaz Bhamjee\\[0.15cm]{\small Department of Mechanical \& Aeronautical Engineering}}
 
 % ------ Outline ---------------------------------------------
 {
@@ -239,7 +239,9 @@ cat ~/.ssh/id_ed25519.pub
 # (Windows Git Bash: clip < ~/.ssh/id_ed25519.pub)
   \end{lstlisting}
   Then: GitHub $\to$ Settings $\to$ SSH and GPG keys $\to$ \textbf{New SSH key} $\to$ paste.
+\end{frame}
 
+\begin{frame}[fragile]{Option 1: SSH Key (Recommended)}
   \vspace{0.3em}
   \textbf{Step 3 --- Test the connection:}
   \begin{lstlisting}[language=bash]
@@ -302,7 +304,9 @@ git clone https://github.com/username/private-repo.git
 Username: your-username
 Password: ghp_xxxxxxxxxxxxxxxxxxxx   # <-- paste token here
   \end{lstlisting}
+\end{frame}
 
+\begin{frame}[fragile]{Option 3: Personal Access Token (PAT)}
   \textbf{Or with \texttt{gh}:}
   \begin{lstlisting}[language=bash]
 echo "ghp_xxxxxxxxxxxxxxxxxxxx" | gh auth login --with-token
@@ -327,7 +331,9 @@ echo "ghp_xxxxxxxxxxxxxxxxxxxx" | gh auth login --with-token
       \bottomrule
     \end{tabular}
   \end{table}
+\end{frame}
 
+\begin{frame}[fragile]{Switching Remote URLs}
   \vspace{0.5em}
   \textbf{Switching an existing repo:}
   \begin{lstlisting}[language=bash]
@@ -414,7 +420,9 @@ git push
 # 5. Pull latest changes (from collaborators)
 git pull
   \end{lstlisting}
+\end{frame}
 
+\begin{frame}[fragile]{Inspecting History \& Changes}
   \vspace{0.3em}
   \textbf{Useful inspection commands:}
   \begin{lstlisting}[language=bash]
@@ -429,23 +437,6 @@ git blame solver.py            # who changed each line?
 \begin{frame}[fragile]{Branching \& Merging}
   Branches let you work on features in isolation.
 
-  \begin{lstlisting}[language=bash]
-# Create and switch to a new branch
-git checkout -b feature/new-solver
-
-# ... edit files, add, commit ...
-
-# Switch back to main
-git checkout main
-
-# Merge the feature branch
-git merge feature/new-solver
-
-# Delete the branch (clean up)
-git branch -d feature/new-solver
-  \end{lstlisting}
-
-  \vspace{0.3em}
   \begin{center}
     \begin{tikzpicture}[
       c/.style={circle, draw, fill=blue!20, minimum size=0.55cm, font=\tiny},
@@ -464,6 +455,26 @@ git branch -d feature/new-solver
       \node[below=2pt, font=\scriptsize\ttfamily, blue!60!black] at (c4.south) {merge};
     \end{tikzpicture}
   \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Branching \& Merging}
+  \begin{lstlisting}[language=bash]
+# Create and switch to a new branch
+git checkout -b feature/new-solver
+
+# ... edit files, add, commit ...
+
+# Switch back to main
+git checkout main
+
+# Merge the feature branch
+git merge feature/new-solver
+
+# Delete the branch (clean up)
+git branch -d feature/new-solver
+  \end{lstlisting}
+
+  \vspace{0.3em}
 \end{frame}
 
 \begin{frame}[fragile]{Handling Merge Conflicts}
@@ -489,7 +500,9 @@ velocity = 10.0  # their change on feature branch
 git add solver.py
 git commit -m "Resolve merge conflict in solver.py"
   \end{lstlisting}
+\end{frame}
 
+\begin{frame}[fragile]{Handling Merge Conflicts}
   \begin{block}{Tip}
     VS Code highlights conflicts with colour and offers \textbf{Accept Current / Incoming / Both} buttons --- much easier than editing markers by hand.
   \end{block}
@@ -642,7 +655,9 @@ gh repo fork upstream/cool-project --clone
 # Create a release
 gh release create v1.0.0 --title "First release" --notes "Initial"
   \end{lstlisting}
+\end{frame}
 
+\begin{frame}[fragile]{\texttt{gh} --- Power User Tips}
   \vspace{0.3em}
   \begin{block}{Power user tip}
     Combine \texttt{gh} with shell scripts to automate your workflow, e.g.\ create a PR from a branch with one command alias.
@@ -792,7 +807,9 @@ gh release create v1.0.0 --title "First release" --notes "Initial"
       \bottomrule
     \end{tabular}
   \end{table}
+\end{frame}
 
+\begin{frame}{Branch Naming Conventions}
   \vspace{0.5em}
   \textbf{Rules of thumb:}
   \begin{itemize}
@@ -909,7 +926,9 @@ gh release create v1.0.0 --title "First release" --notes "Initial"
     \item Open a PR from your fork $\to$ the \textbf{upstream} repo.
     \item Maintainer reviews and merges.
   \end{enumerate}
+\end{frame}
 
+\begin{frame}[fragile]{Keeping Your Fork in Sync}
   \vspace{0.3em}
   \textbf{Keeping your fork in sync:}
   \begin{lstlisting}[language=bash]
@@ -996,7 +1015,11 @@ git push origin main           # update your fork on GitHub
         \item Don't take feedback personally --- it's about the code.
         \item Mark conversations as resolved once addressed.
       \end{itemize}
+\end{column}
+  \end{columns}
+\end{frame}
 
+\begin{frame}{Merge Strategies}
       \vspace{0.5em}
       \textbf{Merge strategy:}
       \begin{itemize}
@@ -1004,8 +1027,6 @@ git push origin main           # update your fork on GitHub
         \item \textbf{Merge commit} --- preserves branch history.
         \item \textbf{Rebase} --- linear history.
       \end{itemize}
-    \end{column}
-  \end{columns}
 \end{frame}
 
 \begin{frame}[fragile]{Protecting the \texttt{main} Branch}
@@ -1042,7 +1063,7 @@ gh api repos/{owner}/{repo}/branches/main/protection
 \begin{frame}{The Complete PR Workflow}
   \begin{center}
     \begin{tikzpicture}[
-      box/.style={draw, rounded corners, fill=blue!8, minimum width=2cm, minimum height=0.7cm, align=center, font=\scriptsize},
+      box/.style={draw, rounded corners, fill=blue!8, minimum width=1cm, minimum height=0.7cm, align=center, font=\scriptsize},
       arr/.style={->, thick, >=Stealth}
     ]
       \node[box] (branch) at (0,0)     {Create\\branch};
@@ -1185,7 +1206,9 @@ gh api repos/{owner}/{repo}/branches/main/protection
     \item It signals professionalism and care --- people trust well-documented code.
     \item GitHub renders it automatically below the file listing.
   \end{itemize}
+\end{frame}
 
+\begin{frame}{Why Every Repo Needs a README}
   \vspace{0.3em}
   \begin{alertblock}{Rule}
     \textbf{No README = the repo doesn't exist} to anyone but you. If someone needs more than 30 seconds to figure out what your project does, the README has failed.
@@ -1205,7 +1228,9 @@ gh api repos/{owner}/{repo}/branches/main/protection
     \item \textbf{Licence} --- what am I allowed to do with this code?
     \item \textbf{Citation} --- how should others cite this work? (academic projects)
   \end{enumerate}
+\end{frame}
 
+\begin{frame}[fragile]{README Skeleton}
   \vspace{0.3em}
   \begin{lstlisting}[language={}, basicstyle=\ttfamily\tiny, title={Minimal README skeleton}]
 # Project Name
@@ -1304,7 +1329,9 @@ MIT --- see [LICENSE](LICENSE).
       \bottomrule
     \end{tabular}
   \end{table}
+\end{frame}
 
+\begin{frame}[fragile]{How to Add a Licence}
   \vspace{0.3em}
   \textbf{How to add a licence:}
   \begin{itemize}
@@ -1347,7 +1374,9 @@ MIT --- see [LICENSE](LICENSE).
       \end{itemize}
     \end{column}
   \end{columns}
+\end{frame}
 
+\begin{frame}[fragile]{Once Tracked, Always Tracked}
   \vspace{0.5em}
   \begin{alertblock}{Once tracked, always tracked}
     \texttt{.gitignore} only prevents \emph{new} files from being tracked. If you've already committed a file, adding it to \texttt{.gitignore} won't remove it. You must also run:\\
@@ -1375,7 +1404,9 @@ data/*.csv         # ignore CSVs only in data/
     \item \url{https://gitignore.io} --- generates a \texttt{.gitignore} for any combination of languages, IDEs, and OSes.
     \item \texttt{gh repo create} with \texttt{--gitignore Python} (or any template name).
   \end{itemize}
+\end{frame}
 
+\begin{frame}[fragile]{gitignore Best Practices}
   \vspace{0.3em}
   \begin{block}{Pro tip: global gitignore}
     OS and editor files (\texttt{.DS\_Store}, \texttt{.vscode/}) belong in a \textbf{global} gitignore, not in every repo:
@@ -1407,7 +1438,9 @@ git config --global core.excludesFile ~/.gitignore_global
       \bottomrule
     \end{tabular}
   \end{table}
+\end{frame}
 
+\begin{frame}[fragile]{Make it Automatic}
   \vspace{0.5em}
   \begin{block}{Make it automatic}
     \texttt{gh repo create my-project --public --clone --license mit --gitignore Python --add-readme}\\[3pt]
