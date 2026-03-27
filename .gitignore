@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# LaTeX build artefacts (for slides/cheatsheet)
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.nav
+*.snm
+*.vrb
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.pdf
+
+# Environment / secrets
+.env
+*.pem
+*.key

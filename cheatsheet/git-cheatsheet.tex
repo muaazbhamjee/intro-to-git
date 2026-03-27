@@ -1,0 +1,257 @@
+% ============================================================
+% Git & GitHub CLI Quick-Reference Cheatsheet
+% ============================================================
+
+\documentclass[10pt, a4paper, landscape]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{geometry}
+\geometry{margin=1.2cm}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{hyperref}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep, leftmargin=1.2em}
+\titlespacing*{\section}{0pt}{6pt}{3pt}
+\titleformat{\section}{\normalsize\bfseries\color{blue!70!black}}{}{0em}{}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries Git \& GitHub CLI Cheatsheet}\\[2pt]
+  {\small University of Pretoria --- Mechanical \& Aeronautical Engineering}
+\end{center}
+
+\begin{multicols}{3}
+
+% ---- Column 1 ----
+
+\section{Setup}
+\begin{verbatim}
+git config --global user.name "Name"
+git config --global user.email "email"
+git config --global init.defaultBranch main
+git config --global core.editor "code --wait"
+git config --list
+\end{verbatim}
+
+\section{Authentication}
+\textbf{SSH (recommended):}
+\begin{verbatim}
+ssh-keygen -t ed25519 -C "email"
+cat ~/.ssh/id_ed25519.pub
+# Add to GitHub > Settings > SSH keys
+ssh -T git@github.com
+\end{verbatim}
+
+\textbf{HTTPS via gh:}
+\begin{verbatim}
+gh auth login
+gh auth status
+gh auth setup-git
+\end{verbatim}
+
+\section{Create \& Clone}
+\begin{verbatim}
+git init
+git clone <url>
+gh repo create name --public --clone
+gh repo clone owner/repo
+\end{verbatim}
+
+\section{Daily Workflow}
+\begin{verbatim}
+git status
+git add <file>
+git add .
+git commit -m "message"
+git push
+git pull
+\end{verbatim}
+
+\section{Inspect}
+\begin{verbatim}
+git log --oneline --graph
+git diff
+git diff --staged
+git show <commit>
+git blame <file>
+git reflog
+\end{verbatim}
+
+% ---- Column 2 ----
+
+\section{Branching}
+\begin{verbatim}
+git branch                  # list
+git branch <name>           # create
+git checkout <name>         # switch
+git checkout -b <name>      # create+switch
+git merge <branch>
+git branch -d <name>        # delete
+git branch -D <name>        # force delete
+\end{verbatim}
+
+\section{Remotes}
+\begin{verbatim}
+git remote -v
+git remote add origin <url>
+git remote set-url origin <url>
+git fetch origin
+git push -u origin main
+git push origin <branch>
+\end{verbatim}
+
+\section{Undoing}
+\begin{verbatim}
+git restore <file>          # discard changes
+git restore --staged <file> # unstage
+git commit --amend          # fix last commit
+git reset --soft HEAD~1     # undo (keep files)
+git reset --hard HEAD~1     # undo (discard!)
+git revert <commit>         # safe undo (push)
+\end{verbatim}
+
+\section{Stashing}
+\begin{verbatim}
+git stash
+git stash pop
+git stash list
+git stash apply stash@{0}
+git stash drop stash@{0}
+\end{verbatim}
+
+\section{Tags \& Releases}
+\begin{verbatim}
+git tag v1.0
+git tag -a v1.0 -m "msg"
+git push --tags
+gh release create v1.0
+\end{verbatim}
+
+% ---- Column 3 ----
+
+\section{GitHub CLI --- Repos}
+\begin{verbatim}
+gh repo create name --public
+gh repo list
+gh repo view
+gh repo view --web
+gh repo fork owner/repo --clone
+gh browse
+\end{verbatim}
+
+\section{GitHub CLI --- PRs}
+\begin{verbatim}
+gh pr create --title "T" --body "B"
+gh pr list
+gh pr view <n>
+gh pr diff <n>
+gh pr checkout <n>
+gh pr merge <n> --squash
+gh pr close <n>
+\end{verbatim}
+
+\section{GitHub CLI --- Issues}
+\begin{verbatim}
+gh issue create --title "T"
+gh issue list
+gh issue view <n>
+gh issue close <n>
+gh issue reopen <n>
+\end{verbatim}
+
+\section{VS Code Shortcuts}
+\begin{tabular}{@{} l l @{}}
+  Ctrl+Shift+G  & Source Control panel \\
+  Ctrl+Enter    & Commit (in SC panel) \\
+  Ctrl+Shift+P  & Command Palette \\
+  Ctrl+`        & Integrated terminal \\
+  Bottom-left   & Branch indicator \\
+\end{tabular}
+
+\section{Branch Naming}
+\texttt{type/short-description}\\[2pt]
+\begin{tabular}{@{} l l @{}}
+  \texttt{feature/} & new functionality \\
+  \texttt{fix/}     & bug fix \\
+  \texttt{docs/}    & documentation \\
+  \texttt{refactor/}& restructure \\
+  \texttt{test/}    & tests \\
+  \texttt{chore/}   & tooling / deps \\
+  \texttt{exp/}     & experimental \\
+\end{tabular}\\[2pt]
+With issue: \texttt{fix/42-nan-outlet}
+
+\section{Commit Messages}
+\texttt{type: short description}\\[2pt]
+\begin{tabular}{@{} l l @{}}
+  \texttt{feat} & new feature \\
+  \texttt{fix} & bug fix \\
+  \texttt{docs} & documentation \\
+  \texttt{test} & tests \\
+  \texttt{refactor} & restructure \\
+  \texttt{chore} & tooling \\
+\end{tabular}
+
+\section{PR Best Practices}
+\begin{itemize}
+  \item \textbf{Never push to main} --- always PR
+  \item One concern per PR (small \& focused)
+  \item Title: \texttt{type: description}
+  \item Body: what, why, ``Closes \#N''
+  \item Self-review diff before requesting
+  \item Protect \texttt{main}: require PR + review + CI
+\end{itemize}
+
+\section{Conflict Markers}
+\begin{verbatim}
+<<<<<<< HEAD
+your changes
+=======
+their changes
+>>>>>>> branch-name
+\end{verbatim}
+Edit $\to$ remove markers $\to$ \texttt{git add} $\to$ \texttt{git commit}
+
+\section{.gitignore Patterns}
+\begin{verbatim}
+*.pyc           __pycache__/
+.env            build/
+!keep.pyc       # exception
+**/logs/        # any depth
+data/*.csv      # scoped
+\end{verbatim}
+Templates: \texttt{gitignore.io} or \texttt{gh repo create --gitignore Python}\\
+Already tracked? \texttt{git rm --cached <file>}
+
+\section{Repo Essentials (First Commit)}
+Every repo starts with three files:
+\begin{itemize}
+  \item \textbf{README.md} --- what, why, install, usage, licence, citation
+  \item \textbf{LICENSE} --- MIT / BSD / GPL (no licence = no permission)
+  \item \textbf{.gitignore} --- prevent junk from being tracked
+\end{itemize}
+One command: {\scriptsize\texttt{gh repo create name --public --clone --license mit --gitignore Python --add-readme}}
+
+\section{Common Licences}
+\begin{tabular}{@{} l l @{}}
+  \textbf{MIT}      & max freedom \\
+  \textbf{Apache 2} & + patent grant \\
+  \textbf{GPL v3}   & copyleft (share-alike) \\
+  \textbf{BSD 3}    & academic tradition \\
+  \textbf{CC BY 4}  & data \& docs (not code) \\
+\end{tabular}\\[2pt]
+Pick at: \texttt{choosealicense.com}
+
+\end{multicols}
+\end{document}

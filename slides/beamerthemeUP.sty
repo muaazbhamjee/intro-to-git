@@ -1,0 +1,129 @@
+% ============================================================
+% beamerthemeUP.sty
+% University of Pretoria — EBIT Beamer Theme
+% Based on the official UP PowerPoint template
+% ============================================================
+\ProvidesPackage{beamerthemeUP}
+
+\RequirePackage{tikz}
+\RequirePackage{graphicx}
+
+% --- EBIT Official Colour Palette ---------------------------
+\definecolor{UPBlue}{RGB}{0, 102, 178}
+\definecolor{EBITTeal}{RGB}{0, 128, 128}
+\definecolor{UPDarkBlue}{RGB}{0, 60, 110}
+\definecolor{UPLightGray}{RGB}{245, 245, 245}
+
+% --- Base theme settings ------------------------------------
+\usefonttheme{professionalfonts}
+\setbeamertemplate{navigation symbols}{}
+
+% Colours
+\setbeamercolor{structure}{fg=UPBlue}
+\setbeamercolor{frametitle}{fg=UPBlue, bg=white}
+\setbeamercolor{title}{fg=white}
+\setbeamercolor{subtitle}{fg=white}
+\setbeamercolor{author}{fg=white}
+\setbeamercolor{institute}{fg=white}
+\setbeamercolor{date}{fg=white}
+\setbeamercolor{normal text}{fg=black, bg=white}
+\setbeamercolor{item}{fg=UPBlue}
+\setbeamercolor{subitem}{fg=EBITTeal}
+\setbeamercolor{block title}{fg=white, bg=UPBlue}
+\setbeamercolor{block body}{fg=black, bg=UPLightGray}
+\setbeamercolor{block title alerted}{fg=white, bg=EBITTeal}
+\setbeamercolor{block body alerted}{fg=black, bg=UPLightGray}
+\setbeamercolor{block title example}{fg=white, bg=EBITTeal}
+\setbeamercolor{block body example}{fg=black, bg=UPLightGray}
+\setbeamercolor{footline}{fg=gray}
+
+% Fonts
+\setbeamerfont{title}{size=\Huge, series=\bfseries}
+\setbeamerfont{subtitle}{size=\large}
+\setbeamerfont{frametitle}{size=\Large, series=\bfseries}
+\setbeamerfont{framesubtitle}{size=\normalsize}
+
+% Frame title template
+\setbeamertemplate{frametitle}{%
+  \vspace{0.3cm}%
+  \insertframetitle%
+  \ifx\insertframesubtitle\empty\else%
+    \\[2pt]{\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}%
+  \fi%
+  \vspace{-0.2cm}%
+  \textcolor{EBITTeal}{\rule{\textwidth}{0.8pt}}%
+  \vspace{0.1cm}%
+}
+
+% Footline with page number
+\setbeamertemplate{footline}{%
+  \hfill%
+  \usebeamercolor[fg]{footline}%
+  \scriptsize\insertframenumber\,/\,\inserttotalframenumber%
+  \hspace{4.5cm}%   offset to avoid Picture3
+  \vspace{3pt}%
+}
+
+% Itemize bullets
+\setbeamertemplate{itemize item}{\scriptsize\raise1.5pt\hbox{\color{UPBlue}$\blacktriangleright$}}
+\setbeamertemplate{itemize subitem}{\scriptsize\raise1pt\hbox{\color{EBITTeal}$\triangleright$}}
+\setbeamertemplate{itemize subsubitem}{\scriptsize\raise1pt\hbox{\color{gray}$\circ$}}
+
+% --- EBIT branding on content slides -----------------------
+\setbeamertemplate{background}{%
+  \ifnum\insertframenumber>0\relax%
+    \begin{tikzpicture}[remember picture, overlay]
+      \node[anchor=south east, inner sep=0pt] at (current page.south east) {%
+        \includegraphics[width=0.22\paperwidth]{Picture3.png}%
+      };
+    \end{tikzpicture}%
+  \fi%
+}
+
+% --- Custom title slide command -----------------------------
+% Usage: \uptitleframe{Title}{Subtitle or Author}
+\newcommand{\uptitleframe}[2]{%
+  {%
+    \setbeamertemplate{background}{}% no Picture3 on title
+    \setbeamertemplate{footline}{}%  no page number on title
+    \begin{frame}[plain]
+      \begin{tikzpicture}[remember picture, overlay]
+        \node[anchor=center] at (current page.center) {%
+          \includegraphics[width=\paperwidth, height=\paperheight]{Picture1.png}%
+        };
+        \node[anchor=west, xshift=1.2cm, yshift=1.5cm, text width=6cm]
+          at (current page.west) {%
+            {\Huge\bfseries\color{white} #1}\\[0.4cm]%
+            {\large\color{white} #2}%
+          };
+      \end{tikzpicture}
+    \end{frame}
+  }%
+}
+
+% --- Custom section divider command -------------------------
+% Usage: \upsectionframe{Section Title}  (auto-generated, or call manually)
+\newcommand{\upsectionframe}[1]{%
+  {%
+    \setbeamertemplate{background}{}%
+    \setbeamertemplate{footline}{}%
+    \begin{frame}[plain]
+      \begin{tikzpicture}[remember picture, overlay]
+        \node[anchor=east] at (current page.east) {%
+          \includegraphics[width=0.9\paperwidth, height=\paperheight, keepaspectratio]{Picture2.png}%
+        };
+        \node[anchor=north west, xshift=0.8cm, yshift=-0.8cm, text width=7cm]
+          at (current page.north west) {%
+            {\Huge\bfseries\color{EBITTeal} #1}%
+          };
+      \end{tikzpicture}
+    \end{frame}
+  }%
+}
+
+% --- Auto-generate section dividers -------------------------
+\AtBeginSection[]{%
+  \upsectionframe{\insertsectionhead}%
+}
+
+\endinput

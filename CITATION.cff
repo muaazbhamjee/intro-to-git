@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+title: "Introduction to Git for Code"
+message: "If you use this material, please cite it as below."
+type: dataset
+authors:
+  - family-names: Bhamjee
+    given-names: Muaaz
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+    affiliation: "University of Pretoria"
+repository-code: "https://github.com/YOUR-USERNAME/intro-to-git"
+license: MIT
+date-released: "2026-01-01"
