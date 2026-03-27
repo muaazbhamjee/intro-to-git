@@ -5,8 +5,8 @@ type: dataset
 authors:
   - family-names: Bhamjee
     given-names: Muaaz
-    orcid: "https://orcid.org/0000-0000-0000-0000"
+    orcid: "https://orcid.org/0000-0002-2697-4589"
     affiliation: "University of Pretoria"
-repository-code: "https://github.com/YOUR-USERNAME/intro-to-git"
+repository-code: "https://github.com/muaazbhamjee/intro-to-git"
 license: MIT
-date-released: "2026-01-01"
+date-released: "2026-03-27"
