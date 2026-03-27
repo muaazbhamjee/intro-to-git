@@ -1,6 +1,6 @@
 # Introduction to Git for Code
 
-> **A hands-on lecture for researchers and developers — from first commit to pull request.**
+> **A hands-on lecture for student, academics, researchers and developers — from first commit to pull request.**
 
 This repository accompanies a lecture that teaches Git as a practical tool for managing code projects. It covers four ways to interact with Git and a full authentication walkthrough.
 
