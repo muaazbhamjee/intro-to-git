@@ -71,10 +71,23 @@ Each folder contains a `README.md` with step-by-step instructions and challenges
 | GitHub CLI token | CI / scripting | `gh auth login --with-token` |
 | Personal Access Token | API / automation | Generate at github.com/settings/tokens |
 
+## Citation
+
+If you use or adapt this material, please cite it as:
+
+```bibtex
+@misc{bhamjee2026git,
+  author       = {Bhamjee, Muaaz},
+  title        = {Introduction to {Git} for Code},
+  year         = {2026},
+  howpublished = {\url{https://github.com/muaazbhamjee/intro-to-git}},
+  note         = {Lecture material, University of Pretoria},
+}
+```
+
 ## Licence
 
-Released under the [MIT Licence](LICENSE).
-
+Released under the [GNU General Public Licence v3.0](LICENSE) — you are free to use, modify, and redistribute it under the same licence terms.
 ---
 
 *Prepared for the Department of Mechanical and Aeronautical Engineering, University of Pretoria.*
